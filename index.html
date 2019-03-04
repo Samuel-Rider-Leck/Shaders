@@ -1,0 +1,63 @@
+<!doctype html>
+<head>
+  <style>
+    * {
+      padding:0;
+      border:0;
+      margin:0;
+    }
+  </style>
+</head>
+<body>
+  <script type="text/javascript" src="https://rawgit.com/patriciogonzalezvivo/glslCanvas/master/dist/GlslCanvas.js"></script>
+  <script>
+    var canvas = document.createElement("canvas");
+    var sandbox = new GlslCanvas(canvas);
+    canvas.height = window.innerHeight-5;
+    canvas.width = window.innerWidth-5;
+    document.body.appendChild(canvas);
+    
+    var shader = `
+    // Author:
+    // Title:
+
+    #ifdef GL_ES
+    precision mediump float;
+    #endif
+
+    uniform vec2 u_resolution;
+    uniform vec2 u_mouse;
+    uniform float u_time;
+    #define PI 3.14159265358979
+
+    void main() {
+        float x,y;
+        if(gl_FragCoord.x/u_resolution.x > 0.5){
+            x = gl_FragCoord.x/u_resolution.x -0.75;
+            x = x + log(pow(x,2.0)+1.0)/50.0;
+        }else{
+            x = gl_FragCoord.x/u_resolution.x -0.25;
+            x = x - log(pow(x,2.0)+1.0)/50.0;
+        }
+        y = gl_FragCoord.y/u_resolution.y -0.5;
+        
+        x *= u_resolution.x/u_resolution.y;
+        
+        float angle = atan (x,y)+PI;
+        float c=angle+50.0*sqrt(x*x+y*y);
+
+        float r = 0.5+0.5*sin (c-2.0*u_time);
+        float g = 0.5+0.5*cos (c-3.0*u_time);
+        float b = 0.5+0.5*sin (c-PI+u_time);
+        
+        vec3 color = vec3(0.);
+        color = vec3(x,y,abs(sin(u_time)));
+
+        gl_FragColor = vec4(r,g,b,1.0);
+    }
+    `;
+    sandbox.load(shader);
+  </script>
+</body>
+
+
