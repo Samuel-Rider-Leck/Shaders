@@ -10,6 +10,7 @@
     body {
       height:100vh;
       width:100vw;
+      overflow: hidden;
     }
     
     @keyframes breather {
@@ -54,7 +55,7 @@
       margin: auto;
       border: 1px solid #ffffff80;
       animation-name: breather;
-      animation-duration: 7s;
+      animation-duration: 6s;
       animation-iteration-count: infinite;
       animation-timing-function: linear;
     }
@@ -82,6 +83,12 @@
       left: 0;
       z-index:1;
     }
+    
+    canvas {
+      height:100vh;
+      width:100vw;
+      margin:auto;
+    }
   </style>
 </head>
 <body>
@@ -93,8 +100,6 @@
   <script>
     var canvas = document.createElement("canvas");
     var sandbox = new GlslCanvas(canvas);
-    canvas.height = window.innerHeight-5;
-    canvas.width = window.innerWidth-5;
     document.body.appendChild(canvas);
     
     var shader = `
