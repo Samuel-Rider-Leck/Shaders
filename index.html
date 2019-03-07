@@ -6,9 +6,89 @@
       border:0;
       margin:0;
     }
+    
+    body {
+      height:100vh;
+      width:100vw;
+    }
+    
+    @keyframes breather {
+      0% {
+        width: 30vw;
+        max-height: 70%;
+        border-radius: 50%;
+        background-color: #ffffff10;
+      }
+      5% {
+        width: 30vw;
+        max-height: 70%;
+        border-radius: 50%;
+        background-color: #ffffff10;
+      }
+      50% {
+        border-radius: 15%;
+        max-height: 90%;
+        width: 40vw;
+        background-color: #ffffff30;
+      }
+      80% {
+        border-radius: 15%;
+        max-height: 90%;
+        width: 40vw;
+        background-color: #ffffff30;
+      }
+      100% {
+        border-radius: 50%;
+        max-height: 70%;
+        width: 30vw;
+        background-color: #ffffff10;
+      }
+    }
+    
+    [class^="breather"] {
+      display: inline-block;
+      position: absolute;
+      z-index:1;
+      width:50%;
+      height: 100%;
+      margin: auto;
+      border: 1px solid #ffffff80;
+      animation-name: breather;
+      animation-duration: 7s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+    
+    .breather1 {
+      top:0;
+      bottom:0;
+      left:0;
+      right:50%;
+    }
+    .breather2 {
+      top:0;
+      bottom:0;
+      left:50%;
+      right:0;
+    }
+    
+    .container {
+      position: absolute;
+      width:100%;
+      height:100%;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      z-index:1;
+    }
   </style>
 </head>
 <body>
+  <div class="container">
+    <div class="breather1"></div>
+    <div class="breather2"></div>
+  </div>
   <script type="text/javascript" src="https://rawgit.com/patriciogonzalezvivo/glslCanvas/master/dist/GlslCanvas.js"></script>
   <script>
     var canvas = document.createElement("canvas");
@@ -28,7 +108,7 @@
     uniform vec2 u_resolution;
     uniform vec2 u_mouse;
     uniform float u_time;
-    #define PI 3.14159265358979
+    #define PI 3.1415926
 
     void main() {
         float x,y;
